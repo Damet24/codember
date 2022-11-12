@@ -35,8 +35,11 @@ function normalizeUsers($str)
 }
 
 
+// lee el archivo users.txt
 $file = fopen(__DIR__ . "/users.txt", "r");
 $str = fread($file, filesize(__DIR__ . "/users.txt"));
+
+// normaliza los usuarios en un array de usuarios
 $users = normalizeUsers($str);
 
 $requiredField = [
@@ -50,6 +53,7 @@ $requiredField = [
 
 $invalid_users = [];
 
+// revisa que usuarios son validos
 for ($i = 0; $i < count($users); $i++) {
     foreach ($requiredField as $field) {
         if (!isset($users[$i][$field])) {
@@ -60,10 +64,12 @@ for ($i = 0; $i < count($users); $i++) {
     }
 }
 
+// elimina los usuariios invalidos
 foreach($invalid_users as $i) {
     unset($users[$i]);
 }
 
+// muestra los resultados
 $a = end($users)['usr'];
 $n = count($users);
 
